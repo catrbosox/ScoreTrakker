@@ -4,9 +4,9 @@ import java.io.*;
 
 public class ScoreTrakker {
 	private ArrayList<Student> students;
-	private static String[] files = {"scores.txt", "badscore.txt", "nofile.txt"};
+	private static String[] files = {"scores.txt", "badscore.txt", "nofile.txt", "badname.txt"};
 	
-	public void loadDataFromFile(String fileName) throws FileNotFoundException {
+	public void loadDataFromFile(String fileName) throws FileNotFoundException, Exception {
 		students = new ArrayList<Student>();
 		FileReader reader = new FileReader(fileName);
 		Scanner in = new Scanner(reader);
@@ -15,6 +15,8 @@ public class ScoreTrakker {
 			String line = "";
 			try {
 				name = in.nextLine();
+				if (name.indexOf(" ") == -1)
+					throw new Exception (name + " does not have a first and last name.");
 				line = in.nextLine();
 				int score = Integer.parseInt(line);
 				students.add(new Student(name, score));
@@ -36,7 +38,9 @@ public class ScoreTrakker {
 				loadDataFromFile(currentFile);
 				printInOrder();
 			} catch (FileNotFoundException e) {
-				System.out.println("Can't open file: " + currentFile);
+				System.out.println("Can't open file: " + currentFile + "\n");
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
 			}
 		}
 	}
