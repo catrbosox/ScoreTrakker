@@ -21,9 +21,9 @@ public class Student implements Comparable<Student> {
 	@Override
 	public int compareTo(Student other) {
 		if (this.score < other.score)
-			return -1;
-		else if (this.score > other.score)
 			return 1;
+		else if (this.score > other.score)
+			return -1;
 		else {
 			//If scores are equal, compare names
 			int result = this.name.compareTo(other.name);
